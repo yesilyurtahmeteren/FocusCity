@@ -1,0 +1,69 @@
+# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+
+# dependencies
+node_modules/
+
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# Native
+.kotlin/
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Metro
+.metro-health-check*
+
+# debug
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# macOS
+.DS_Store
+*.pem
+
+# Environment files: only reviewed, value-free examples may be shared
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Local agent settings and private scan artifacts
+.claude/
+.codex/
+.agents/
+
+# Signing and service credentials
+*.keystore
+*.pfx
+credentials.json
+service-account*.json
+*-firebase-adminsdk-*.json
+local.properties
+
+# Device evidence may contain personal status bars or session history
+docs/screenshots/
+
+# Generated reports, build artifacts and logs
+coverage/
+*.log
+*.apk
+*.aab
+*.ipa
+
+# typescript
+*.tsbuildinfo
+
+example
+
+# generated native folders
+/ios
+/android

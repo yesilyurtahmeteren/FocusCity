@@ -1,0 +1,98 @@
+import {
+  Tabs,
+  TabList,
+  TabTrigger,
+  TabSlot,
+  TabTriggerSlotProps,
+  TabListProps,
+} from 'expo-router/ui';
+import type { ComponentProps } from 'react';
+import { Pressable, View, StyleSheet } from 'react-native';
+
+import { tr } from '@/localization/tr';
+
+import { MaxContentWidth, Spacing } from '@/constants/theme';
+
+import { ThemedText } from './themed-text';
+import { ThemedView } from './themed-view';
+
+export default function AppTabs() {
+  return (
+    <Tabs>
+      <TabSlot style={{ height: '100%' }} />
+      <TabList asChild>
+        <CustomTabList>
+          <TabTrigger name="home" href="/" asChild>
+            <TabButton>{tr.navigation.home}</TabButton>
+          </TabTrigger>
+          <TabTrigger name="explore" href="/explore" asChild>
+            <TabButton>{tr.navigation.foundation}</TabButton>
+          </TabTrigger>
+          <TabTrigger name="city" href="/city" asChild>
+            <TabButton>{tr.navigation.city}</TabButton>
+          </TabTrigger>
+        </CustomTabList>
+      </TabList>
+    </Tabs>
+  );
+}
+
+type TabButtonProps = Omit<TabTriggerSlotProps, 'ref'> & {
+  ref?: ComponentProps<typeof Pressable>['ref'];
+};
+
+export function TabButton({ children, isFocused, ...props }: TabButtonProps) {
+  return (
+    <Pressable {...props} style={({ pressed }) => pressed && styles.pressed}>
+      <ThemedView
+        type={isFocused ? 'backgroundSelected' : 'backgroundElement'}
+        style={styles.tabButtonView}>
+        <ThemedText type="small" themeColor={isFocused ? 'text' : 'textSecondary'}>
+          {children}
+        </ThemedText>
+      </ThemedView>
+    </Pressable>
+  );
+}
+
+export function CustomTabList(props: TabListProps) {
+  return (
+    <View {...props} style={styles.tabListContainer}>
+      <ThemedView type="backgroundElement" style={styles.innerContainer}>
+        {props.children}
+      </ThemedView>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  tabListContainer: {
+    position: 'absolute',
+    width: '100%',
+    padding: Spacing.three,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  innerContainer: {
+    paddingVertical: Spacing.two,
+    paddingHorizontal: Spacing.three,
+    borderRadius: Spacing.five,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    flexGrow: 1,
+    gap: Spacing.two,
+    maxWidth: MaxContentWidth,
+  },
+  pressed: {
+    opacity: 0.7,
+  },
+  tabButtonView: {
+    minHeight: 48,
+    justifyContent: 'center',
+    paddingVertical: Spacing.one,
+    paddingHorizontal: Spacing.three,
+    borderRadius: Spacing.three,
+  },
+});
